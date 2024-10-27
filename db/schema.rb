@@ -10,11 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_27_023321) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_27_030154) do
+  create_table "pay_rate_bonuses", force: :cascade do |t|
+    t.integer "pay_rate_id", null: false
+    t.float "rate_per_client", null: false
+    t.integer "min_client_count"
+    t.integer "max_client_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pay_rate_id"], name: "index_pay_rate_bonuses_on_pay_rate_id"
+  end
+
   create_table "pay_rates", force: :cascade do |t|
     t.string "rate_name", null: false
     t.float "base_rate_per_client", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "pay_rate_bonuses", "pay_rates"
 end
