@@ -148,4 +148,19 @@ RSpec.describe "PayRates", type: :request do
       end
     end
   end
+
+  describe "GET /pay_rates/:pay_rate_id/payment" do
+    context "with valid parameters" do
+      it "return the calculated payment value" do
+        pay_rate = create(:pay_rate, base_rate_per_client: 5.0)
+        create(:pay_rate_bonus, pay_rate: pay_rate, rate_per_client: 2, min_client_count: 5, max_client_count: 7)
+
+        get payment_pay_rate_url(pay_rate, clients: 10), as: :json
+
+        expect(response).to have_http_status(:ok)
+        expect(response.content_type).to match(a_string_including("application/json"))
+        expect(response.body).to eq({ payment_value: 54.0 }.to_json) # 50.0 + 4.0 (bonus)
+      end
+    end
+  end
 end

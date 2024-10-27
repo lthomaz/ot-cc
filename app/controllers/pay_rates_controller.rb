@@ -19,6 +19,12 @@ class PayRatesController < ApplicationController
     end
   end
 
+  def payment
+    @pay_rate = PayRate.find(params[:id])
+
+    render json: { payment_value: @pay_rate.payment_value(clients_amount: params[:clients]) }
+  end
+
   private
 
   def pay_rate_params
