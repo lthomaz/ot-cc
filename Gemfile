@@ -10,7 +10,7 @@ group :development, :test do
   gem "brakeman", require: false
   gem "factory_bot_rails", "~> 6.4.4"
   gem "pry-rails", "~> 0.3.11"
-  gem "rspec-rails", "~> 7.0.1"
+  gem "rspec-rails", "~> 7.1.0"
   gem "rubocop-rails-omakase", require: false
 end
 
